@@ -19,9 +19,9 @@ const routes = [
     component: () => import(`@/views/About.vue`)
   },
   {
-    path: '/daily-check',
-    name: 'DailyCheck',
-    component: loadComponent('DailyCheck')
+    path: '/routine-check',
+    name: 'RoutineCheck',
+    component: loadComponent('RoutineCheck')
   }
 ]
 
