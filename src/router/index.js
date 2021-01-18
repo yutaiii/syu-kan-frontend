@@ -17,6 +17,11 @@ const routes = [
     path: '/about',
     name: 'About',
     component: loadView('About')
+  },
+  {
+    path: '/daily-check',
+    name: 'DailyCheck',
+    component: loadView('DailyCheck')
   }
 ]
 
