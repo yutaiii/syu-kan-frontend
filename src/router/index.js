@@ -3,25 +3,25 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
-function loadView(componentName) {
-  return () => import(/* webpackChunkName: "view-[request]" */ `@/views/${componentName}.vue`)
+function loadComponent(componentName) {
+  return () => import(`@/components/${componentName}.vue`)
 }
 
 const routes = [
   {
     path: '/',
     name: 'Home',
-    component: loadView('Home')
+    component: () => import(`@/views/Home.vue`)
   },
   {
     path: '/about',
     name: 'About',
-    component: loadView('About')
+    component: () => import(`@/views/About.vue`)
   },
   {
     path: '/daily-check',
     name: 'DailyCheck',
-    component: loadView('DailyCheck')
+    component: loadComponent('DailyCheck')
   }
 ]
 
