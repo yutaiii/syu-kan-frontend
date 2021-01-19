@@ -1,13 +1,20 @@
 <template>
   <v-container>
-    <template v-for="(r, index) in routines">
-      <v-checkbox
-        :key="index"
-        :input-value="r.acheived"
-        :label="r.name"
-        @change="updateAcheived(index)"
-      ></v-checkbox>
-    </template>
+    <v-row justify="center" align-content="center">
+      <v-col cols="4"></v-col>
+      <v-col cols="4">
+        <template v-for="(r, index) in routines">
+          <v-checkbox
+            class="routine-checkbox"
+            :key="index"
+            :input-value="r.acheived"
+            :label="r.name"
+            @change="updateAcheived(index)"
+          ></v-checkbox>
+        </template>
+      </v-col>
+      <v-col cols="4"></v-col>
+    </v-row>
     <v-btn
       color="success"
     >登録</v-btn>
@@ -21,7 +28,7 @@ export default {
     return {
       routines: [
         {
-          name: "routine 1",
+          name: "routine 1aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabb",
           acheived: false,
         },
         {
@@ -42,3 +49,10 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.routine-checkbox >>> label {
+  font-size: 20px;
+  word-break: break-all;
+}
+</style>
