@@ -22,24 +22,13 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: 'RoutineCheck',
   data () {
     return {
-      routines: [
-        {
-          name: "routine 1aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabb",
-          acheived: false,
-        },
-        {
-          name: "routine 2",
-          acheived: false,
-        },
-        {
-          name: "routine 3",
-          acheived: false,
-        }
-      ],
+      routines: [],
       checkbox: true,
     }
   },methods: {
@@ -47,6 +36,15 @@ export default {
       this.routines[index].acheived = !this.routines[index].acheived;
     }
   },
+  created: function() {
+    axios.get('http://localhost:8000/routines')
+      .then(res => {
+        this.routines = res.data;
+      })
+      .catch(e => {
+        console.log('e', e)
+      })
+  }
 }
 </script>
 
