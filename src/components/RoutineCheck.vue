@@ -17,6 +17,7 @@
     </v-row>
     <v-btn
       color="success"
+      @click="onRegisterClick()"
     >登録</v-btn>
   </v-container>
 </template>
@@ -34,6 +35,26 @@ export default {
   },methods: {
     updateAcheived(index) {
       this.routines[index].acheived = !this.routines[index].acheived;
+    },
+    onRegisterClick() {
+      let requestParams = [];
+      for(let i = 0; i < this.routines.length; i++) {
+        let param = {
+          "routineId": this.routines[i].id,
+          "date" : new Date(),
+          "achieved": this.routines[i].acheived ? true : false
+        };
+        requestParams.push(param);
+      }
+
+      // Post to API
+      axios.post('http://localhost:8000/progress', requestParams)
+        .then(res => {
+          console.log('res', res)
+        })
+        .catch(e => {
+          console.log('e', e)
+        })
     }
   },
   created: function() {
