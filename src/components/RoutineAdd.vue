@@ -13,6 +13,7 @@
                 label="習慣名"
                 :rules="rules"
                 hide-details="auto"
+                v-model="newRoutines[index].name"
               >
             </v-text-field>
             </template>
@@ -49,6 +50,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   name: 'RoutineAdd',
   data: () => ({
@@ -57,27 +60,41 @@ export default {
     ],
     newRoutineInitObject: {
       name: "",
-      StartedAt: new Date(),
+      startedAt: new Date(),
     },
     newRoutines: [
       {
         name: "",
-        StartedAt: new Date(),
+        startedAt: new Date(),
       }
     ],
 
   }),
   methods: {
     onSubmitClicked() {
+      // バリデーションがOKの場合
       if (this.$refs.routine_add_form.validate()) {
-        console.log("ok")
-      } else {
-        console.log("ng")
+        let requestParam = [];
+        for (let i = 0; i < this.newRoutines.length; i++) {
+          let param = {
+            "name": this.newRoutines[i].name,
+            "startedAt": this.newRoutines[i].startedAt,
+          };
+          requestParam.push(param);
+        }
+
+        // Post to API
+        axios.post('http://localhost:8000/routines/create', requestParam)
+          .then(res => {
+            console.log('res', res)
+          })
+          .catch(e => {
+            console.log('e', e)
+          })
       }
     },
     addRoutine() {
-      console.log("add")
-      this.newRoutines.push(this.newRoutineInitObject)
+      this.newRoutines.push(this.newRoutineInitObject);
     }
   }
 }
