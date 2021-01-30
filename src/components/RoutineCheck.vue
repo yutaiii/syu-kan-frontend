@@ -3,6 +3,31 @@
     <v-row justify="center" align-content="center">
       <v-col cols="3"></v-col>
       <v-col cols="6">
+
+        <v-row>
+          <v-col class="text-right">
+            <v-tooltip right>
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn
+                  class="ma-2"
+                  fab
+                  dark
+                  small
+                  color="deep-orange"
+                  v-bind="attrs"
+                  v-on="on"
+                  @click="onClickRoutineAdd()"
+                >
+                  <v-icon>
+                    mdi-plus
+                  </v-icon>
+                </v-btn>
+              </template>
+              <span>習慣新規登録</span>
+            </v-tooltip>
+          </v-col>
+        </v-row>
+
         <v-stepper v-model="stepper">
           <v-stepper-header>
             <v-stepper-step
@@ -101,6 +126,9 @@ export default {
         .catch(e => {
           console.log('e', e)
         })
+    },
+    onClickRoutineAdd() {
+      console.log("add")
     }
   },
   created: function() {
