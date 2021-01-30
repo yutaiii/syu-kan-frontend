@@ -16,7 +16,7 @@
                   color="deep-orange"
                   v-bind="attrs"
                   v-on="on"
-                  @click="onClickRoutineAdd()"
+                  to="/routine-add"
                 >
                   <v-icon>
                     mdi-plus
@@ -127,9 +127,6 @@ export default {
           console.log('e', e)
         })
     },
-    onClickRoutineAdd() {
-      console.log("add")
-    }
   },
   created: function() {
     axios.get('http://localhost:8000/routines')

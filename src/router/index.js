@@ -22,6 +22,11 @@ const routes = [
     path: '/routine-check',
     name: 'RoutineCheck',
     component: loadComponent('RoutineCheck')
+  },
+  {
+    path: '/routine-add',
+    name: 'RoutineAdd',
+    component: loadComponent('RoutineAdd')
   }
 ]
 
