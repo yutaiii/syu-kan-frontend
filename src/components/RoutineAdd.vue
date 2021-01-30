@@ -7,14 +7,30 @@
       <v-col cols="6">
         <div>
           <v-form ref="routine_add_form">
-            <v-text-field
-              label="習慣名"
-              :rules="rules"
-              hide-details="auto"
-            >
+            <template v-for="(r, index) in newRoutines">
+              <v-text-field
+                :key="index"
+                label="習慣名"
+                :rules="rules"
+                hide-details="auto"
+              >
             </v-text-field>
+            </template>
           </v-form>
         </div>
+
+        <v-btn
+          class="ma-4"
+          fab
+          dark
+          small
+          color="deep-orange"
+          @click="addRoutine()"
+        >
+          <v-icon>
+            mdi-plus
+          </v-icon>
+        </v-btn>
       </v-col>
       <v-col cols="3"></v-col>
     </v-row>
@@ -39,6 +55,17 @@ export default {
     rules: [
       value => !!value || '習慣名は必須です',
     ],
+    newRoutineInitObject: {
+      name: "",
+      StartedAt: new Date(),
+    },
+    newRoutines: [
+      {
+        name: "",
+        StartedAt: new Date(),
+      }
+    ],
+
   }),
   methods: {
     onSubmitClicked() {
@@ -47,6 +74,10 @@ export default {
       } else {
         console.log("ng")
       }
+    },
+    addRoutine() {
+      console.log("add")
+      this.newRoutines.push(this.newRoutineInitObject)
     }
   }
 }
