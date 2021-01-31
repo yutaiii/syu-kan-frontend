@@ -32,6 +32,11 @@ const routes = [
     path: '/routine-edit',
     name: 'RoutineEdit',
     component: loadComponent('RoutineEdit')
+  },
+  {
+    path: '/routine-delete',
+    name: 'RoutineDelete',
+    component: loadComponent('RoutineDelete')
   }
 ]
 
