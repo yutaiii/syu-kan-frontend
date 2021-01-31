@@ -13,32 +13,10 @@
                   fab
                   dark
                   small
-                  color="deep-orange"
-                  v-bind="attrs"
-                  v-on="on"
-                  to="/routine-add"
-                >
-                  <v-icon>
-                    mdi-plus
-                  </v-icon>
-                </v-btn>
-              </template>
-              <span>習慣新規登録</span>
-            </v-tooltip>
-          </v-col>
-
-          <v-col class="text-right">
-            <v-tooltip right>
-              <template v-slot:activator="{ on, attrs }">
-                <v-btn
-                  class="ma-2"
-                  fab
-                  dark
-                  small
                   color="blue-grey lighten-2"
                   v-bind="attrs"
                   v-on="on"
-                  to="/routine-add"
+                  to="/routine-edit"
                 >
                   <v-icon>
                     mdi-pencil
