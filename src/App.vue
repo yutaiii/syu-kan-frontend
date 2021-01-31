@@ -5,7 +5,8 @@
         <router-link to="/">Home</router-link> |
         <router-link to="/about">About</router-link>|
         <router-link to="/routine-check">routine-check</router-link>|
-        <router-link to="/routine-add">routine-add</router-link>
+        <router-link to="/routine-add">routine-add</router-link>|
+        <router-link to="/routine-edit">routine-edit</router-link>
       </div>
       <router-view/>
     </div>

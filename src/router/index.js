@@ -27,6 +27,11 @@ const routes = [
     path: '/routine-add',
     name: 'RoutineAdd',
     component: loadComponent('RoutineAdd')
+  },
+  {
+    path: '/routine-edit',
+    name: 'RoutineEdit',
+    component: loadComponent('RoutineEdit')
   }
 ]
 
