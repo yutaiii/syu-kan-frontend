@@ -6,24 +6,15 @@
     <v-row justify="center" align-content="center">
       <v-col cols="3"></v-col>
       <v-col cols="6">
-        <v-form ref="routine_edit_form">
-          <template v-for="(r, index) in routines">
-            <v-text-field
-              :key="index"
-              :label="'習慣名' + parseInt(index + 1, 10)"
-              :rules="rules"
-              hide-details="auto"
-              v-model="routines[index].name"
-            >
-              <v-icon
-                slot="append"
-                @click="onDeleteClickd()"
-              >
-                mdi-trash-can
-              </v-icon>
-            </v-text-field>
-          </template>
-        </v-form>
+        <template v-for="(r, index) in routines">
+          <v-checkbox
+            class="routine-checkbox"
+            :key="index"
+            :input-value="r.acheived"
+            :label="r.name"
+            @change="deleteChecked(index)"
+          ></v-checkbox>
+        </template>
 
       </v-col>
       <v-col cols="3"></v-col>
@@ -36,7 +27,7 @@
     >戻る</v-btn>
     <v-btn
       color="error"
-      @click="onSubmitClicked()"
+      @click="onDeleteClickd()"
     >削除</v-btn>
   </v-container>
 </template>
@@ -45,7 +36,7 @@
 import axios from 'axios';
 
 export default {
-  name: 'RoutineEdit',
+  name: 'RoutineDelete',
   data: () => ({
     routines: [],
     rules: [
@@ -66,32 +57,46 @@ export default {
       })
   },
   methods: {
-    onSubmitClicked() {
-      // バリデーションがOKの場合
-      if (this.$refs.routine_edit_form.validate()) {
-        let requestParam = [];
-        for (let i = 0; i < this.routines.length; i++) {
-          let param = {
-            "id": this.routines[i].id,
-            "name": this.routines[i].name,
-            "startedAt": this.routines[i].startedAt,
-          };
-          requestParam.push(param);
-        }
-
-        // Post to API
-        axios.put('http://localhost:8000/routines/update', requestParam)
-          .then(res => {
-            console.log('res', res)
-          })
-          .catch(e => {
-            console.log('e', e)
-          })
-      }
+    deleteChecked(index) {
+      this.routines[index].deleteFlag = !this.routines[index].deleteFlag;
     },
     onDeleteClickd() {
-      console.log('delete')
-    }
+      let requestParam = [];
+      for (let i = 0; i < this.routines.length; i++) {
+        if (!this.routines[i].deleteFlag) {
+          continue;
+        }
+
+        let param = {
+          "id": this.routines[i].id,
+        };
+        requestParam.push(param);
+      }
+      // 1つ以上チェックされているか？
+      if (requestParam.length < 1) {
+        // TODO pop upにしたい
+        console.log("error")
+        return;
+      }
+      console.log("requestParam", requestParam)
+
+      // Post to API
+      axios.delete('http://localhost:8000/routines/delete', requestParam)
+        .then(res => {
+          // TODO pop upにしたい
+          console.log('res', res)
+        })
+        .catch(e => {
+          console.log('e', e)
+        })
+  }
   }
 }
 </script>
+
+<style scoped>
+.routine-checkbox >>> label {
+  font-size: 20px;
+  word-break: break-all;
+}
+</style>
