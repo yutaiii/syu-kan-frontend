@@ -78,10 +78,9 @@ export default {
         console.log("error")
         return;
       }
-      console.log("requestParam", requestParam)
 
       // Post to API
-      axios.delete('http://localhost:8000/routines/delete', requestParam)
+      axios.post('http://localhost:8000/routines/delete', requestParam)
         .then(res => {
           // TODO pop upにしたい
           console.log('res', res)
