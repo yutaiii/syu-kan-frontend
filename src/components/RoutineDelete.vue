@@ -3,7 +3,7 @@
     <h1>習慣削除</h1>
     <h3>削除する習慣にチェックをつけてください</h3>
 
-    <v-row justify="center" align-content="center">
+    <v-row justify="center" align-content="center" class="mt-3">
       <v-col cols="3"></v-col>
       <v-col cols="6">
         <template v-for="(r, index) in routines">
@@ -97,5 +97,10 @@ export default {
 .routine-checkbox >>> label {
   font-size: 20px;
   word-break: break-all;
+}
+/* Vueがつける既存のmargin,paddingをなくす */
+.v-input--selection-controls{
+  margin-top: 0px;
+  padding-top: 0px;
 }
 </style>
