@@ -3,6 +3,17 @@
     <h1>習慣削除</h1>
     <h3>削除する習慣にチェックをつけてください</h3>
 
+    <v-alert
+      v-model="errorDialog"
+      dismissible
+      color="orange"
+      border="left"
+      elevation="2"
+      colored-border
+    >
+      削除する場合は1つ以上にチェックをつけてください。
+    </v-alert>
+
     <v-row justify="center" align-content="center" class="mt-3">
       <v-col cols="3"></v-col>
       <v-col cols="6">
@@ -46,6 +57,7 @@ export default {
       name: "",
       startedAt: new Date(),
     },
+    errorDialog: false,
   }),
   created: function() {
     axios.get('http://localhost:8000/routines')
@@ -74,8 +86,7 @@ export default {
       }
       // 1つ以上チェックされているか？
       if (requestParam.length < 1) {
-        // TODO pop upにしたい
-        console.log("error")
+        this.errorDialog = true;
         return;
       }
 
