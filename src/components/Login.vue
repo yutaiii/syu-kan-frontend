@@ -7,8 +7,8 @@
       ref="loginForm"
     >
       <v-text-field
-        v-model="username"
-        label="Name"
+        v-model="email"
+        label="Email"
         :rules="requiredRule"
         required
       ></v-text-field>
@@ -36,7 +36,7 @@ import firebase from 'firebase';
 export default {
   name: 'Login',
   data: () => ({
-    username: "",
+    email: "",
     password: "",
     requiredRule: [
       value => !!value || '必須項目です',
@@ -46,7 +46,7 @@ export default {
   methods: {
     login() {
       this.$refs.loginForm.validate();
-      firebase.auth().signInWithEmailAndPassword(this.username, this.password)
+      firebase.auth().signInWithEmailAndPassword(this.email, this.password)
       .then(res => {
         console.log('success', res)
       })
