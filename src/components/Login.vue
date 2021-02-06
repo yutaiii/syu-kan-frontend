@@ -1,9 +1,59 @@
 <template>
-  <h1>This is Login Page</h1>
+  <v-card
+    class="pa-5 ma-auto"
+    width="50%"
+  >
+    <v-form
+      ref="loginForm"
+    >
+      <v-text-field
+        v-model="username"
+        label="Name"
+        :rules="requiredRule"
+        required
+      ></v-text-field>
+      <v-text-field
+        v-model="password"
+        :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+        label="Password"
+        :rules="requiredRule"
+        :type="showPassword ? 'text' : 'password'"
+        required
+        @click:append="showPassword = !showPassword"
+      ></v-text-field>
+      <v-btn
+        @click="login"
+      >
+        ログイン
+      </v-btn>
+    </v-form>
+  </v-card>
 </template>
 
 <script>
+import firebase from 'firebase';
+
 export default {
-  name: 'Login'
+  name: 'Login',
+  data: () => ({
+    username: "",
+    password: "",
+    requiredRule: [
+      value => !!value || '必須項目です',
+    ],
+    showPassword: false,
+  }),
+  methods: {
+    login() {
+      this.$refs.loginForm.validate();
+      firebase.auth().signInWithEmailAndPassword(this.username, this.password)
+      .then(res => {
+        console.log('success', res)
+      })
+      .catch(e => {
+        console.log('error', e)
+      })
+    },
+  }
 }
 </script>
