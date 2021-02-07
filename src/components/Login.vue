@@ -45,14 +45,19 @@ export default {
   }),
   methods: {
     login() {
-      this.$refs.loginForm.validate();
-      firebase.auth().signInWithEmailAndPassword(this.email, this.password)
-      .then(res => {
-        console.log('success', res)
-      })
-      .catch(e => {
-        console.log('error', e)
-      })
+      if (this.$refs.loginForm.validate()) {
+        firebase.auth().signInWithEmailAndPassword(this.email, this.password)
+        .then(res => {
+          alert('success')
+          console.log('success', res)
+        })
+        .catch(e => {
+          alert('error')
+          console.log('error', e)
+        })
+      } else {
+        console.log('validate error')
+      }
     },
   }
 }
