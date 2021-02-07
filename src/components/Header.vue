@@ -26,10 +26,10 @@
       <v-list-item>
         <v-list-item-content>
           <v-list-item-title class="title">
-            Application
+            SYU-KAN
           </v-list-item-title>
           <v-list-item-subtitle>
-            subtext
+            メニュー
           </v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
@@ -44,6 +44,7 @@
           v-for="item in items"
           :key="item.title"
           link
+          :to="item.path"
         >
           <v-list-item-icon>
             <v-icon>{{ item.icon }}</v-icon>
@@ -64,9 +65,13 @@ export default {
   data: () => ({
     drawer: false,
     items: [
-      { title: 'Dashboard', icon: 'mdi-view-dashboard' },
-      { title: 'Photos', icon: 'mdi-image' },
-      { title: 'About', icon: 'mdi-help-box' },
+      { title: 'Home', icon: 'mdi-view-dashboard', path: '/' },
+      { title: 'About', icon: 'mdi-help-box', path: '/about' },
+      { title: '習慣日次チェック', icon: 'mdi-checkbox-marked', path: '/routine-check' },
+      { title: '習慣登録', icon: 'mdi-plus-box', path: '/routine-add' },
+      { title: '習慣編集', icon: 'mdi-pencil-box', path: '/routine-edit' },
+      { title: '習慣削除', icon: 'mdi-delete', path: '/routine-delete' },
+      { title: 'ログイン', icon: 'mdi-login', path: '/login' },
     ],
   }),
 }
