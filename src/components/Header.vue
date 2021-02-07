@@ -60,7 +60,7 @@
 
 <script>
 export default {
-  name: 'NavigationDrawer',
+  name: 'Header',
   data: () => ({
     drawer: false,
     items: [

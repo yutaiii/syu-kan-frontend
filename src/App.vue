@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <navigation-drawer></navigation-drawer>
+    <Header />
 
     <div id="app">
       <div id="nav">
@@ -18,14 +18,14 @@
 </template>
 
 <script>
-import NavigationDrawer from "@/components/NavigationDrawer.vue";
+import Header from "@/components/Header.vue";
 
 export default {
   data () {
     return {}
   },
   components: {
-    NavigationDrawer
+    Header
   }
 }
 </script>
