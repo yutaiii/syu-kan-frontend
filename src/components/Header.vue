@@ -71,7 +71,7 @@ export default {
       { title: '習慣登録', icon: 'mdi-plus-box', path: '/routine-add' },
       { title: '習慣編集', icon: 'mdi-pencil-box', path: '/routine-edit' },
       { title: '習慣削除', icon: 'mdi-delete', path: '/routine-delete' },
-      { title: 'ログイン', icon: 'mdi-login', path: '/login' },
+      { title: 'ログアウト', icon: 'mdi-login', path: '/logout' },
     ],
   }),
 }

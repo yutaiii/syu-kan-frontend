@@ -26,6 +26,12 @@ const routes = [
     component: loadComponent('Login')
   },
   {
+    path: '/logout',
+    name: 'Logout',
+    component: loadComponent('Logout'),
+    meta: { requiresAuth: true },
+  },
+  {
     path: '/about',
     name: 'About',
     component: () => import(`@/views/About.vue`),
