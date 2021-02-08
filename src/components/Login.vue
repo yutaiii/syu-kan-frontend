@@ -1,33 +1,39 @@
 <template>
-  <v-card
-    class="pa-5 ma-auto"
-    width="50%"
-  >
-    <v-form
-      ref="loginForm"
+  <div>
+    <v-card
+      class="pa-5 ma-auto"
+      width="50%"
     >
-      <v-text-field
-        v-model="email"
-        label="Email"
-        :rules="requiredRule"
-        required
-      ></v-text-field>
-      <v-text-field
-        v-model="password"
-        :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-        label="Password"
-        :rules="requiredRule"
-        :type="showPassword ? 'text' : 'password'"
-        required
-        @click:append="showPassword = !showPassword"
-      ></v-text-field>
-      <v-btn
-        @click="login"
+      <v-form
+        ref="loginForm"
       >
-        ログイン
-      </v-btn>
-    </v-form>
-  </v-card>
+        <v-text-field
+          v-model="email"
+          label="Email"
+          :rules="requiredRule"
+          required
+        ></v-text-field>
+        <v-text-field
+          v-model="password"
+          :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+          label="Password"
+          :rules="requiredRule"
+          :type="showPassword ? 'text' : 'password'"
+          required
+          @click:append="showPassword = !showPassword"
+        ></v-text-field>
+        <v-btn
+          @click="login"
+        >
+          ログイン
+        </v-btn>
+      </v-form>
+    </v-card>
+
+    <!-- <div class="mt-5">
+      <router-link to="/signup">アカウントを作成</router-link>
+    </div> -->
+  </div>
 </template>
 
 <script>
