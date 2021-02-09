@@ -1,5 +1,8 @@
 <template>
-  <div>
+  <v-card
+    class="pa-5 ma-auto"
+    width="50%"
+  >
     <div class="logout">ログアウトしますか？</div>
     <v-btn
       class="ma-3"
@@ -11,7 +14,7 @@
       dark
       @click="logout()"
     >ログアウト</v-btn>
-  </div>
+  </v-card>
 </template>
 
 <script>
