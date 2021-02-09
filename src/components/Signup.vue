@@ -21,10 +21,21 @@
         required
         @click:append="showPassword = !showPassword"
       ></v-text-field>
+      <v-text-field
+        v-model="confirmPassword"
+        :append-icon="showConfirmPassword ? 'mdi-eye' : 'mdi-eye-off'"
+        label="Confirm Password"
+        :rules="confirmPasswordRule"
+        :type="showConfirmPassword ? 'text' : 'password'"
+        required
+        @click:append="showConfirmPassword = !showConfirmPassword"
+      ></v-text-field>
       <v-btn
-        @click="login"
+        color="orange lighten-2"
+        dark
+        @click="signin"
       >
-        ログイン
+        登録
       </v-btn>
     </v-form>
   </v-card>
@@ -38,23 +49,26 @@ export default {
   data: () => ({
     email: "",
     password: "",
+    confirmPassword: "",
     requiredRule: [
       value => !!value || '必須項目です',
     ],
     showPassword: false,
+    showConfirmPassword: false,
   }),
+  computed: {
+    confirmPasswordRule() {
+      return [
+        () => (this.password === this.confirmPassword) || '入力されたパスワードが異なります',
+        v => !!v || '必須項目です',
+        v => v.length > 6 || 'パスワードは6文字以上にしてください'
+      ];
+    }
+  },
   methods: {
-    login() {
+    signin() {
       if (this.$refs.loginForm.validate()) {
-        firebase.auth().signInWithEmailAndPassword(this.email, this.password)
-        .then(res => {
-          alert('success')
-          console.log('success', res)
-        })
-        .catch(e => {
-          alert('error')
-          console.log('error', e)
-        })
+        console.log('success')
       } else {
         console.log('validate error')
       }
