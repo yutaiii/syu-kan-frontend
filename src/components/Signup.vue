@@ -95,12 +95,20 @@ export default {
       ];
 
       // signup処理
-      let self = this;
+      let _this = this;
+      let _email = this.email;
+      let _password = this.password;
       setTimeout(function() {
-        if (self.$refs.loginForm.validate()){
-          alert('submitted')
-        } else  {
-          alert('else')
+        if (_this.$refs.loginForm.validate()){
+          firebase.auth().createUserWithEmailAndPassword(_email, _password)
+          .then(res => {
+            // TODO
+            // DBにユーザーを登録
+            console.log('res', res)
+          })
+          .catch(e => {
+            console.log('e', e)
+          })
         }
       })
     }
