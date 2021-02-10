@@ -5,18 +5,25 @@
   >
     <v-form
       ref="loginForm"
+      @submit.prevent="submitHandler"
     >
       <v-text-field
         v-model="email"
-        label="Email"
-        :rules="requiredRule"
+        label="Email Address"
+        :rules="emailRule"
+        required
+      ></v-text-field>
+      <v-text-field
+        v-model="accountName"
+        label="Account Name"
+        :rules="accountNameRule"
         required
       ></v-text-field>
       <v-text-field
         v-model="password"
         :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
         label="Password"
-        :rules="requiredRule"
+        :rules="passwordRule"
         :type="showPassword ? 'text' : 'password'"
         required
         @click:append="showPassword = !showPassword"
@@ -33,7 +40,7 @@
       <v-btn
         color="orange lighten-2"
         dark
-        @click="signin"
+        type="submit"
       >
         登録
       </v-btn>
@@ -46,23 +53,18 @@ import firebase from 'firebase';
 
 export default {
   name: 'Signup',
-  data: () => ({
-    email: "",
-    password: "",
-    confirmPassword: "",
-    requiredRule: [
-      value => !!value || '必須項目です',
-    ],
-    showPassword: false,
-    showConfirmPassword: false,
-  }),
-  computed: {
-    confirmPasswordRule() {
-      return [
-        () => (this.password === this.confirmPassword) || '入力されたパスワードが異なります',
-        v => !!v || '必須項目です',
-        v => v.length > 6 || 'パスワードは6文字以上にしてください'
-      ];
+  data() {
+    return {
+      email: "",
+      accountName: "",
+      password: "",
+      confirmPassword: "",
+      emailRule: [],
+      accountNameRule: [],
+      passwordRule: [],
+      confirmPasswordRule: [],
+      showPassword: false,
+      showConfirmPassword: false,
     }
   },
   methods: {
@@ -73,6 +75,35 @@ export default {
         console.log('validate error')
       }
     },
+    submitHandler() {
+      // ボタンが押されるまでバリデーションを走らせないための対応
+      this.emailRule = [
+        v => !!v || '必須項目です',
+        (v) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,})+$/.test(v) || 'メールアドレスが不正です'
+      ];
+      this.accountNameRule = [
+        v => !!v || '必須項目です',
+      ];
+      this.passwordRule = [
+        v => !!v || '必須項目です',
+        v => v.length >= 6 || 'パスワードは6文字以上にしてください'
+      ];
+      this.confirmPasswordRule = [
+        () => (this.password === this.confirmPassword) || '入力されたパスワードが異なります',
+        v => !!v || '必須項目です',
+        v => v.length >= 6 || 'パスワードは6文字以上にしてください'
+      ];
+
+      // signup処理
+      let self = this;
+      setTimeout(function() {
+        if (self.$refs.loginForm.validate()){
+          alert('submitted')
+        } else  {
+          alert('else')
+        }
+      })
+    }
   }
 }
 </script>
