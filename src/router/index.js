@@ -21,6 +21,11 @@ const routes = [
     component: loadComponent('Signup')
   },
   {
+    path: '/signup2',
+    name: 'tSignup',
+    component: loadComponent('tSignup')
+  },
+  {
     path: '/login',
     name: 'Login',
     component: loadComponent('Login')
