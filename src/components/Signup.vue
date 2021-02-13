@@ -1,51 +1,54 @@
 <template>
-  <v-card
-    class="pa-5 ma-auto"
-    width="50%"
-  >
-    <v-form
-      ref="loginForm"
-      @submit.prevent="submitHandler"
+  <div>
+    <h1>サインアップ</h1>
+    <v-card
+      class="pa-5 ma-auto mt-3"
+      width="50%"
     >
-      <v-text-field
-        v-model="email"
-        label="Email Address"
-        :rules="emailRule"
-        required
-      ></v-text-field>
-      <v-text-field
-        v-model="accountName"
-        label="Account Name"
-        :rules="accountNameRule"
-        required
-      ></v-text-field>
-      <v-text-field
-        v-model="password"
-        :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-        label="Password"
-        :rules="passwordRule"
-        :type="showPassword ? 'text' : 'password'"
-        required
-        @click:append="showPassword = !showPassword"
-      ></v-text-field>
-      <v-text-field
-        v-model="confirmPassword"
-        :append-icon="showConfirmPassword ? 'mdi-eye' : 'mdi-eye-off'"
-        label="Confirm Password"
-        :rules="confirmPasswordRule"
-        :type="showConfirmPassword ? 'text' : 'password'"
-        required
-        @click:append="showConfirmPassword = !showConfirmPassword"
-      ></v-text-field>
-      <v-btn
-        color="orange lighten-2"
-        dark
-        type="submit"
+      <v-form
+        ref="loginForm"
+        @submit.prevent="submitHandler"
       >
-        登録
-      </v-btn>
-    </v-form>
-  </v-card>
+        <v-text-field
+          v-model="email"
+          label="Email Address"
+          :rules="emailRule"
+          required
+        ></v-text-field>
+        <v-text-field
+          v-model="accountName"
+          label="Account Name"
+          :rules="accountNameRule"
+          required
+        ></v-text-field>
+        <v-text-field
+          v-model="password"
+          :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+          label="Password"
+          :rules="passwordRule"
+          :type="showPassword ? 'text' : 'password'"
+          required
+          @click:append="showPassword = !showPassword"
+        ></v-text-field>
+        <v-text-field
+          v-model="confirmPassword"
+          :append-icon="showConfirmPassword ? 'mdi-eye' : 'mdi-eye-off'"
+          label="Confirm Password"
+          :rules="confirmPasswordRule"
+          :type="showConfirmPassword ? 'text' : 'password'"
+          required
+          @click:append="showConfirmPassword = !showConfirmPassword"
+        ></v-text-field>
+        <v-btn
+          color="orange lighten-2"
+          dark
+          type="submit"
+        >
+          登録
+        </v-btn>
+      </v-form>
+    </v-card>
+  </div>
 </template>
 
 <script>

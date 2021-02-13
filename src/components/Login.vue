@@ -1,7 +1,8 @@
 <template>
   <div>
+    <h1>ログイン</h1>
     <v-card
-      class="pa-5 ma-auto"
+      class="pa-5 ma-auto mt-3"
       width="50%"
     >
       <v-form
