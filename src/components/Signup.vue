@@ -7,7 +7,7 @@
     >
       <v-form
         ref="loginForm"
-        @submit.prevent="submitHandler"
+        @submit.prevent="signupHandler"
       >
         <v-text-field
           v-model="email"
@@ -52,7 +52,11 @@
 </template>
 
 <script>
+// TODO 登録ボタンを押した後にdisabledにしたい
+// TODO　登録ボタンを押した後にローディングにしたい
 import firebase from 'firebase';
+import axios from 'axios';
+import router from '@/router';
 
 export default {
   name: 'Signup',
@@ -71,14 +75,7 @@ export default {
     }
   },
   methods: {
-    signin() {
-      if (this.$refs.loginForm.validate()) {
-        console.log('success')
-      } else {
-        console.log('validate error')
-      }
-    },
-    submitHandler() {
+    signupHandler() {
       // ボタンが押されるまでバリデーションを走らせないための対応
       this.emailRule = [
         v => !!v || '必須項目です',
@@ -101,16 +98,32 @@ export default {
       let _this = this;
       let _email = this.email;
       let _password = this.password;
+      let _accountName = this.accountName;
       setTimeout(function() {
         if (_this.$refs.loginForm.validate()){
           firebase.auth().createUserWithEmailAndPassword(_email, _password)
-          .then(res => {
-            // TODO
-            // DBにユーザーを登録
-            console.log('res', res)
+          .then(() => {
+            let user = firebase.auth().currentUser;
+            if (user) {
+              let requestParam = {
+                "name": _accountName,
+                "firebaseUid": user.uid
+              };
+              // DBにユーザーを登録
+              axios.post('http://localhost:8000/user/create', requestParam)
+              .then(res => {
+                // トップ画面に遷移
+                router.push({ path: '/' });
+              })
+              .catch(() => {
+                alert('ユーザーの作成に失敗しました');
+              });
+            } else {
+              alert('ユーザーの作成に失敗しました');
+            }
           })
           .catch(e => {
-            console.log('e', e)
+            alert('ユーザーの作成に失敗しました');
           })
         }
       })
