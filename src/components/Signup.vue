@@ -40,9 +40,11 @@
           @click:append="showConfirmPassword = !showConfirmPassword"
         ></v-text-field>
         <v-btn
+          class="submitButton"
           color="orange lighten-2"
-          dark
           type="submit"
+          :disabled="isSubmitButtonDisabled"
+          :loading="isSubmitButtonLoading"
         >
           登録
         </v-btn>
@@ -52,8 +54,6 @@
 </template>
 
 <script>
-// TODO 登録ボタンを押した後にdisabledにしたい
-// TODO　登録ボタンを押した後にローディングにしたい
 import firebase from 'firebase';
 import axios from 'axios';
 import router from '@/router';
@@ -72,6 +72,8 @@ export default {
       confirmPasswordRule: [],
       showPassword: false,
       showConfirmPassword: false,
+      isSubmitButtonDisabled: false,
+      isSubmitButtonLoading: false,
     }
   },
   methods: {
@@ -99,8 +101,12 @@ export default {
       let _email = this.email;
       let _password = this.password;
       let _accountName = this.accountName;
-      setTimeout(function() {
+      setTimeout(() => {
         if (_this.$refs.loginForm.validate()){
+          // ローディングを開始
+          this.isSubmitButtonDisabled = true;
+          this.isSubmitButtonLoading = true;
+
           firebase.auth().createUserWithEmailAndPassword(_email, _password)
           .then(() => {
             let user = firebase.auth().currentUser;
@@ -117,13 +123,19 @@ export default {
               })
               .catch(() => {
                 alert('ユーザーの作成に失敗しました');
+                this.isSubmitButtonDisabled = false;
+                this.isSubmitButtonLoading = false;
               });
             } else {
               alert('ユーザーの作成に失敗しました');
+              this.isSubmitButtonDisabled = false;
+              this.isSubmitButtonLoading = false;
             }
           })
           .catch(e => {
             alert('ユーザーの作成に失敗しました');
+            this.isSubmitButtonDisabled = false;
+            this.isSubmitButtonLoading = false;
           })
         }
       })
@@ -131,3 +143,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.submitButton {
+  color: white;
+}
+</style>
