@@ -97,22 +97,18 @@ export default {
       ];
 
       // signup処理
-      let _this = this;
-      let _email = this.email;
-      let _password = this.password;
-      let _accountName = this.accountName;
       setTimeout(() => {
-        if (_this.$refs.loginForm.validate()){
+        if (this.$refs.loginForm.validate()){
           // ローディングを開始
           this.isSubmitButtonDisabled = true;
           this.isSubmitButtonLoading = true;
 
-          firebase.auth().createUserWithEmailAndPassword(_email, _password)
+          firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
           .then(() => {
             let user = firebase.auth().currentUser;
             if (user) {
               let requestParam = {
-                "name": _accountName,
+                "name": this.accountName,
                 "firebaseUid": user.uid
               };
               // DBにユーザーを登録
