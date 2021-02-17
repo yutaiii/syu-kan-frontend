@@ -117,7 +117,7 @@ export default {
               };
               // DBにユーザーを登録
               axios.post('http://localhost:8000/user/create', requestParam)
-              .then(res => {
+              .then(() => {
                 // トップ画面に遷移
                 router.push({ path: '/' });
               })
@@ -132,7 +132,7 @@ export default {
               this.isSubmitButtonLoading = false;
             }
           })
-          .catch(e => {
+          .catch(() => {
             alert('ユーザーの作成に失敗しました');
             this.isSubmitButtonDisabled = false;
             this.isSubmitButtonLoading = false;
