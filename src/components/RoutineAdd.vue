@@ -51,6 +51,7 @@
 
 <script>
 import axios from 'axios';
+import firebase from 'firebase';
 
 export default {
   name: 'RoutineAdd',
@@ -72,16 +73,25 @@ export default {
   }),
   methods: {
     onSubmitClicked() {
+      let userId = this.getUserId()
+      if (userId = -1) {
+        alert('エラーが発生しました');
+      }
+      console.log(userId)
+      return;
       // バリデーションがOKの場合
       if (this.$refs.routine_add_form.validate()) {
+
         let requestParam = [];
         for (let i = 0; i < this.newRoutines.length; i++) {
           let param = {
             "name": this.newRoutines[i].name,
+            "userId": 2,
             "startedAt": this.newRoutines[i].startedAt,
           };
           requestParam.push(param);
         }
+        console.log(requestParam);
 
         // Post to API
         axios.post('http://localhost:8000/routines/create', requestParam)
@@ -92,6 +102,24 @@ export default {
             console.log('e', e)
           })
       }
+    },
+    // TODO 2回リクエストが投げられている
+    // https://labor.ewigleere.net/2019/01/29/vue-axios-post-twise/
+    getUserId() {
+      let user = firebase.auth().currentUser;
+      console.log(user.uid);
+      let requestParam = {
+        "firebaseUid": user.uid
+      };
+      axios.post('http://localhost:8000/users/find', requestParam)
+      .then(res => {
+        console.log("in then")
+        console.log(res)
+        return res.data.id;
+      })
+      .catch(e => {
+        return -1;
+      });
     },
     addRoutine() {
       this.newRoutines.push(this.newRoutineInitObject);
