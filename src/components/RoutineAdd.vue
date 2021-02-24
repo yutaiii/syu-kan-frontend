@@ -114,10 +114,12 @@ export default {
       axios.post('http://localhost:8000/users/find', requestParam)
       .then(res => {
         console.log("in then")
-        console.log(res)
+        console.log("res", res)
         return res.data.id;
       })
       .catch(e => {
+        console.log("in catch")
+        console.log("e", e)
         return -1;
       });
     },
