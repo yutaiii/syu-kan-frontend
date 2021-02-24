@@ -73,59 +73,51 @@ export default {
   }),
   methods: {
     onSubmitClicked() {
-      let userId = this.getUserId()
-      if (userId = -1) {
-        alert('エラーが発生しました');
-      }
-      console.log(userId)
-      return;
-      // バリデーションがOKの場合
-      if (this.$refs.routine_add_form.validate()) {
-
-        let requestParam = [];
-        for (let i = 0; i < this.newRoutines.length; i++) {
-          let param = {
-            "name": this.newRoutines[i].name,
-            "userId": 2,
-            "startedAt": this.newRoutines[i].startedAt,
-          };
-          requestParam.push(param);
-        }
-        console.log(requestParam);
-
-        // Post to API
-        axios.post('http://localhost:8000/routines/create', requestParam)
-          .then(res => {
-            console.log('res', res)
-          })
-          .catch(e => {
-            console.log('e', e)
-          })
-      }
-    },
-    // TODO 2回リクエストが投げられている
-    // https://labor.ewigleere.net/2019/01/29/vue-axios-post-twise/
-    getUserId() {
       let user = firebase.auth().currentUser;
-      console.log(user.uid);
       let requestParam = {
         "firebaseUid": user.uid
       };
+
+      // UidからユーザーIDを取得
       axios.post('http://localhost:8000/users/find', requestParam)
       .then(res => {
-        console.log("in then")
-        console.log("res", res)
-        return res.data.id;
+        // バリデーションがOKの場合
+        if (this.$refs.routine_add_form.validate()) {
+
+          let requestParam = [];
+          for (let i = 0; i < this.newRoutines.length; i++) {
+            let param = {
+              "name": this.newRoutines[i].name,
+              "userId": res.data.id,
+              "startedAt": this.newRoutines[i].startedAt,
+            };
+            requestParam.push(param);
+          }
+
+          // Post to API
+          axios.post('http://localhost:8000/routines/create', requestParam)
+            .then(() => {
+              alert('習慣登録が完了しました');
+              // 見た目上空にする
+              // TODO　参照渡し問題を解決
+              this.newRoutines = this.newRoutineInitObject;
+              return;
+            })
+            .catch(() => {
+              alert('習慣登録中にエラーが発生しました。');
+              return;
+            })
+        }
       })
-      .catch(e => {
-        console.log("in catch")
-        console.log("e", e)
-        return -1;
+      .catch(() => {
+        alert('習慣登録中にエラーが発生しました。');
+        return;
       });
     },
     addRoutine() {
+      // TODO　参照渡し問題を解決
       this.newRoutines.push(this.newRoutineInitObject);
     }
-  }
+  },
 }
 </script>
