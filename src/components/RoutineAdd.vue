@@ -99,8 +99,8 @@ export default {
             .then(() => {
               alert('習慣登録が完了しました');
               // 見た目上空にする
-              // TODO　参照渡し問題を解決
-              this.newRoutines = this.newRoutineInitObject;
+              // Object.assignで参照渡しを解消
+              this.newRoutines = Object.assign({}, this.newRoutineInitObject);
               return;
             })
             .catch(() => {
@@ -115,8 +115,8 @@ export default {
       });
     },
     addRoutine() {
-      // TODO　参照渡し問題を解決
-      this.newRoutines.push(this.newRoutineInitObject);
+      // Object.assignで参照渡しを解消
+      this.newRoutines.push(Object.assign({}, this.newRoutineInitObject));
     }
   },
 }
