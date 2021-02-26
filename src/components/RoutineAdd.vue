@@ -100,7 +100,10 @@ export default {
               alert('習慣登録が完了しました');
               // 見た目上空にする
               // Object.assignで参照渡しを解消
-              this.newRoutines = Object.assign({}, this.newRoutineInitObject);
+              let newRoutineInitObject = Object.assign({}, this.newRoutineInitObject);
+              this.newRoutines = [newRoutineInitObject];
+              // バリデーションが走ってしまうので解消
+              this.$refs.routine_add_form.resetValidation();
               return;
             })
             .catch(() => {
