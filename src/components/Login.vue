@@ -40,6 +40,7 @@
 <script>
 import firebase from 'firebase';
 import firebaseUtils from './../firebaseUtils';
+import router from '@/router'
 
 export default {
   name: 'Login',
@@ -55,11 +56,10 @@ export default {
     login() {
       if (this.$refs.loginForm.validate()) {
         firebase.auth().signInWithEmailAndPassword(this.email, this.password)
-        .then(res => {
-          alert('success')
-          console.log('success', res)
+        .then(() => {
           firebaseUtils.onAuthStateChanged();
-          // TODO 画面遷移
+          // ホーム画面に遷移
+          router.push({ path: '/' });
         })
         .catch(e => {
           alert('error')
