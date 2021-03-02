@@ -39,6 +39,7 @@
 
 <script>
 import firebase from 'firebase';
+import firebaseUtils from './../firebaseUtils';
 
 export default {
   name: 'Login',
@@ -57,6 +58,8 @@ export default {
         .then(res => {
           alert('success')
           console.log('success', res)
+          firebaseUtils.onAuthStateChanged();
+          // TODO 画面遷移
         })
         .catch(e => {
           alert('error')

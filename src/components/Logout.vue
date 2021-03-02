@@ -19,6 +19,7 @@
 
 <script>
 import firebase from 'firebase';
+import firebaseUtils from './../firebaseUtils';
 import router from '@/router';
 
 export default {
@@ -27,6 +28,7 @@ export default {
     logout() {
       firebase.auth().signOut()
       .then(() => {
+        firebaseUtils.onAuthStateChanged();
         // ログイン画面に遷移
         router.push({ path: '/login' });
       })
