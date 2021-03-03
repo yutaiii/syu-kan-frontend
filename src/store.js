@@ -7,6 +7,7 @@ export default new Vuex.Store({
   state: {
     user: {},
     isLoggedIn: false,
+    userId: 0,
   },
   mutations: {
     onAuthStateChanged(state, user) {
@@ -16,6 +17,9 @@ export default new Vuex.Store({
     onUserLoginStatusChanged(state, isLoggedIn) {
       // ログインしているかどうか
       state.isLoggedIn = isLoggedIn;
+    },
+    updateUserId(state, userId) {
+      state.userId = userId;
     }
   },
   getters: {
@@ -24,6 +28,9 @@ export default new Vuex.Store({
     },
     isLoggedIn(state) {
       return state.isLoggedIn;
+    },
+    userId(state) {
+      return state.userId;
     }
   }
 });
