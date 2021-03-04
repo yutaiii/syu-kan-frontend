@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import createPersistedState from 'vuex-persistedstate';
 
 Vue.use(Vuex);
 
@@ -24,5 +25,18 @@ export default new Vuex.Store({
     userId(state) {
       return state.userId;
     }
-  }
+  },
+  plugins: [createPersistedState(
+    {
+      // ストレージのキーを指定。デフォルトではvuex
+      key: 'syu-kan-app',
+      // 管理対象のステートを指定
+      paths: [
+        'isLoggedIn',
+        'userId',
+      ],
+      // ストレージの種類を指定。デフォルトではローカルストレージ
+      storage: window.localStrage,
+    }
+  )]
 });
