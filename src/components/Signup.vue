@@ -54,8 +54,9 @@
 </template>
 
 <script>
-import firebase from 'firebase';
 import axios from 'axios';
+import firebase from 'firebase';
+import firebaseUtils from './../firebaseUtils';
 import router from '@/router';
 
 export default {
@@ -114,6 +115,7 @@ export default {
               // DBにユーザーを登録
               axios.post('http://localhost:8000/user/create', requestParam)
               .then(() => {
+                firebaseUtils.onAuthStateChanged();
                 // トップ画面に遷移
                 router.push({ path: '/' });
               })
