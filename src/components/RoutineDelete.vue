@@ -92,12 +92,18 @@ export default {
 
       // Post to API
       axios.post('http://localhost:8000/routines/delete', requestParam)
-        .then(res => {
-          // TODO pop upにしたい
-          console.log('res', res)
+        .then(() => {
+          let newRoutines = [];
+          for (let i = 0; i < this.routines.length; i++) {
+            if (!this.routines[i].deleteFlag) {
+              newRoutines.push(this.routines[i]);
+            }
+          }
+          this.routines = newRoutines;
+          alert('削除が完了しました');
         })
-        .catch(e => {
-          console.log('e', e)
+        .catch(() => {
+          alert('削除に失敗しました');
         })
   }
   }
