@@ -87,11 +87,11 @@ export default {
 
         // Post to API
         axios.put('http://localhost:8000/routines/update', requestParam)
-          .then(res => {
-            console.log('res', res)
+          .then(() => {
+            alert('習慣の更新が完了しました');
           })
-          .catch(e => {
-            console.log('e', e)
+          .catch(() => {
+            alert('習慣の更新に失敗しました');
           })
       }
     },
