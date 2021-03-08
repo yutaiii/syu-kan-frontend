@@ -62,12 +62,13 @@ export default {
     },
   }),
   created: function() {
-    axios.get('http://localhost:8000/routines')
+    let targetUrl = 'http://localhost:8000/users/' + String(this.$store.getters.userId) + '/routines';
+    axios.get(targetUrl)
       .then(res => {
         this.routines = res.data;
       })
-      .catch(e => {
-        console.log('e', e)
+      .catch(() => {
+        alert('エラーが発生しました');
       })
   },
   methods: {
