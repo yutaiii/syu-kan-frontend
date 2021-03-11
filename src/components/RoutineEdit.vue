@@ -85,8 +85,10 @@ export default {
           requestParam.push(param);
         }
 
+        let targetUrl = 'http://localhost:8000/users/' + String(this.$store.getters.userId) + '/routines';
+
         // Post to API
-        axios.put('http://localhost:8000/routines/update', requestParam)
+        axios.put(targetUrl, requestParam)
           .then(() => {
             alert('習慣の更新が完了しました');
           })
