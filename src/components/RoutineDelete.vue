@@ -91,8 +91,12 @@ export default {
         return;
       }
 
-      // Post to API
-      axios.post('http://localhost:8000/routines/delete', requestParam)
+      let targetUrl = 'http://localhost:8000/users/' + String(this.$store.getters.userId) + '/routines';
+
+      // deleteの場合は{data: hoge}として送信しないとエラーになる
+      // https://github.com/axios/axios/issues/3220
+      // https://qiita.com/reflet/items/d5658d5d69e8e1ccd489#delete-%E5%89%8A%E9%99%A4
+      axios.delete(targetUrl, {data: requestParam})
         .then(() => {
           let newRoutines = [];
           for (let i = 0; i < this.routines.length; i++) {
