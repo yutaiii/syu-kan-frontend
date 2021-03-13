@@ -119,23 +119,23 @@ export default {
 
       // Post to API
       axios.post('http://localhost:8000/progress', requestParams)
-        .then(res => {
+        .then(() => {
           this.stepper = 2;
-          console.log('res', res)
         })
-        .catch(e => {
-          console.log('e', e)
-        })
+        .catch(() => {
+          alert('エラーが発生しました');
+        });
     },
   },
   created: function() {
-    axios.get('http://localhost:8000/routines')
+    let targetUrl = 'http://localhost:8000/users/' + String(this.$store.getters.userId) + '/routines';
+    axios.get(targetUrl)
       .then(res => {
         this.routines = res.data;
       })
-      .catch(e => {
-        console.log('e', e)
-      })
+      .catch(() => {
+        alert('エラーが発生しました');
+      });
   }
 }
 </script>
