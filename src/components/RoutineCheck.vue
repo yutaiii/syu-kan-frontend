@@ -99,6 +99,7 @@ export default {
   data () {
     return {
       routines: [],
+      registeredRoutines: [],
       checkbox: true,
       stepper: 1,
     }
@@ -130,12 +131,37 @@ export default {
   created: function() {
     let targetUrl = 'http://localhost:8000/users/' + String(this.$store.getters.userId) + '/routines';
     axios.get(targetUrl)
-      .then(res => {
-        this.routines = res.data;
-      })
-      .catch(() => {
-        alert('エラーが発生しました');
-      });
+    .then(res => {
+      this.routines = res.data;
+    })
+    .catch(() => {
+      alert('エラーが発生しました');
+    });
+
+    // 今日の進捗が登録されているか確認
+    targetUrl = 'http://localhost:8000/users/' + String(this.$store.getters.userId) + '/progress/today';
+    axios.get(targetUrl)
+    .then(res => {
+      this.registeredRoutines = res.data;
+      // すでに今日の進捗が提出済みの習慣を見つけて
+      // チェックボックスにチェックをつける
+      for (let r of this.routines) {
+        for (let rr of this.registeredRoutines) {
+          if (r.id === rr.routineId) {
+            r.acheived = true;
+            // これを追加するとチェックされる
+            // acheivedがAPIレスポンスにデフォルトで含まれていないから？
+            r.name = "hoge";
+          }
+        }
+      }
+
+      // TODO delete insert
+      // upsertでも良いかも
+    })
+    .catch(() => {
+      alert('エラーが発生しました');
+    });
   }
 }
 </script>
