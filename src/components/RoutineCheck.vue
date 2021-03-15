@@ -55,9 +55,9 @@
                     <v-checkbox
                       class="routine-checkbox"
                       :key="index"
-                      :input-value="r.acheived"
+                      :input-value="r.achieved"
                       :label="r.name"
-                      @change="updateAcheived(index)"
+                      @change="updateAchieved(index)"
                     ></v-checkbox>
                   </template>
                 </v-col>
@@ -104,8 +104,8 @@ export default {
       stepper: 1,
     }
   },methods: {
-    updateAcheived(index) {
-      this.routines[index].acheived = !this.routines[index].acheived;
+    updateAchieved(index) {
+      this.routines[index].achieved = !this.routines[index].achieved;
     },
     onRegisterClick() {
       let requestParams = [];
@@ -113,7 +113,7 @@ export default {
         let param = {
           "routineId": this.routines[i].id,
           "date" : new Date(),
-          "achieved": this.routines[i].acheived ? true : false
+          "achieved": this.routines[i].achieved ? true : false
         };
         requestParams.push(param);
       }
@@ -148,10 +148,7 @@ export default {
       for (let r of this.routines) {
         for (let rr of this.registeredRoutines) {
           if (r.id === rr.routineId) {
-            r.acheived = true;
-            // これを追加するとチェックされる
-            // acheivedがAPIレスポンスにデフォルトで含まれていないから？
-            r.name = "hoge";
+            r.achieved = true;
           }
         }
       }
