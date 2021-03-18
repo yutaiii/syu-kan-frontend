@@ -143,6 +143,12 @@ export default {
     axios.get(targetUrl)
     .then(res => {
       this.registeredRoutines = res.data;
+
+      // null チェック
+      if (res.data === null) {
+        return;
+      }
+
       // すでに今日の進捗が提出済みの習慣を見つけて
       // チェックボックスにチェックをつける
       for (let r of this.routines) {
