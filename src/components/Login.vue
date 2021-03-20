@@ -54,6 +54,7 @@ export default {
   }),
   methods: {
     login() {
+      // バリデーションが通ったらログインを行う
       if (this.$refs.loginForm.validate()) {
         firebase.auth().signInWithEmailAndPassword(this.email, this.password)
         .then(() => {
@@ -61,12 +62,9 @@ export default {
           // ホーム画面に遷移
           router.push({ path: '/' });
         })
-        .catch(e => {
-          alert('error')
-          console.log('error', e)
+        .catch(() => {
+          alert('ログインに失敗しました');
         })
-      } else {
-        console.log('validate error')
       }
     },
   }
