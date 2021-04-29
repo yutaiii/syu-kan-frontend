@@ -12,7 +12,7 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: () => import(`@/views/Home.vue`),
+    component: loadComponent('Home'),
     meta: { requiresAuth: true },
   },
   {
